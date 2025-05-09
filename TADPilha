@@ -1,0 +1,66 @@
+#include <stdio.h>
+
+typedef struct Elementos{
+       int dado;
+       TElemento * proximo;
+       
+ }TElemento;
+   
+   
+typedef struct Pilha{
+       TElemento * topo;
+ }TPilha;
+ 
+
+TPilha * cria_pilha(){//ou new()
+    TPilha * p = malloc(sizeof(Pilha));
+    p-> topo = NULL;  //o topo recebe null pq não tem nada na Pilha
+    return p;
+};
+
+
+void push(TPilha * p, int x){
+    //alocar t(novo elemento) Elementos
+    TElemento * novo =malloc(sizeof*(TElemento));  
+    novo-> dado = x; 
+    novo-> proximo = p-> topo;
+    p-> topo = novo; 
+};
+
+int pop(TPilha * p){
+//alterar o dado
+    TElemento * aux = p->topo; //PONTEIRO AUX
+    int dado= -999;
+    if ( aux!= NULL){
+    dado =aux-> dado;
+    p -> topo = aux ->proximo;
+    free(aux);
+    }
+    return dado;
+};
+
+
+// ver tamanho pilha
+int tamanho(TPilha * p){
+    int tam =0;
+    TElemento * aux = p -> topo;
+    while(aux != NULL){
+        tam++;
+        aux = aux ->proximo;
+    }
+    return  tam;
+    
+};
+
+
+void destruir_pilha(TPilha * p){
+    int vazia =0;
+    while(pop(p) != -999){
+        vaziam = pop(p);
+    }
+};
+
+
+int main{
+ 
+};
