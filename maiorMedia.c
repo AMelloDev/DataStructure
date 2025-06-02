@@ -1,0 +1,104 @@
+#include <stdlib.h>
+#include <stdio.h>
+//Uma função para contar quantos elementos possuem valores acima da média de valores dos elementos armazenados na lista.
+
+typedef struct Elemento {
+	int valor;
+	struct Elemento* prox;
+} Elemento;
+
+typedef struct Lista {
+	Elemento* inicio;
+} Lista;
+
+Lista* criar_lista() {
+	Lista * l = malloc(sizeof(Lista));
+	l-> inicio = NULL;
+	return l;
+};
+
+int tamanho(Lista* l) {
+	int contador = 0;
+	Elemento* atual = l->inicio;
+
+	while (atual != NULL) {
+		contador++;
+		atual = atual->prox;
+	}
+
+	return contador;
+};
+
+Elemento* inserir(Lista* l, int x) {
+	Elemento* aux;
+	Elemento* novo = malloc(sizeof(Elemento));
+	novo-> valor = x;
+	novo->prox = NULL;
+
+	aux= l->inicio;
+
+	if(aux == NULL) {
+		l->inicio = novo;
+		return novo;
+	}
+	while(aux->prox != NULL) {
+		aux= aux->prox;
+	}
+	aux-> prox = novo;
+	return novo;
+
+};
+
+int sum (Lista* l) {
+	int tamanho_Lista = tamanho(l);
+	int sum =0;
+
+	Elemento* atual = l->inicio;
+	int contador = 0;
+
+	while (contador != tamanho_Lista) {
+		sum = sum+ atual-> valor;
+		contador++;
+		atual = atual->prox;
+	}
+
+	return sum;
+}
+
+
+
+float media(Lista* l) {
+	float media=0;
+	media = (sum(l)/(tamanho(l)*1.0));
+	return media;
+}
+
+
+int maioresMedia(Lista* l) {
+	int cont = 0;
+	Elemento* aux =l->inicio;
+	if(l->inicio==NULL) {
+		return -999;
+		float mediaa= media(l);
+
+		while(aux->prox != NULL) {
+			if(mediaa< aux-> valor) {
+				cont++;
+				aux= aux->prox;
+			}
+		}
+		return cont;
+	}
+}
+int main() {
+
+	Lista* listaUm = criar_lista();
+
+	inserir(listaUm, 3);
+	inserir(listaUm, 3);
+	inserir(listaUm, 3);
+
+	printf("A media dos elementos C %d", maioresMedia(listaUm));
+
+	return 0;
+}
